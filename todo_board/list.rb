@@ -96,4 +96,8 @@ class List
     end
     true
   end
+
+  def sort_by_date!
+    @items.sort_by!(&:deadline)
+  end
 end
