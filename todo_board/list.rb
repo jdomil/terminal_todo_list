@@ -44,11 +44,11 @@ class List
     puts '-------------------------------------------------'
     puts @label.to_s.center(50)
     puts '-------------------------------------------------'
-    puts 'Index'.ljust(6) + '| Item'.ljust(23) + '| Deadline'.ljust(13) + '| Status'.ljust(6)
+    puts 'Index'.ljust(6) + '| Item'.ljust(22) + '| Deadline'.ljust(13) + '| Status'.ljust(6)
     puts '-------------------------------------------------'
 
     @items.each_with_index do |item, idx|
-      puts idx.to_s.ljust(6) + "| #{item.title}".ljust(23) + "| #{item.deadline}".ljust(13) + "| #{item.status}".ljust(6)
+      puts idx.to_s.ljust(6) + "| #{item.title}".ljust(22) + "| #{item.deadline}".ljust(13) + "| #{item.status}".ljust(6)
     end
 
     puts '-------------------------------------------------'
