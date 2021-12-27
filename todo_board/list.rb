@@ -22,9 +22,7 @@ class List
   end
 
   def valid_index?(index)
-    return false if index.negative? || index > @items.size
-
-    true
+    index >= 0 && index < size
   end
 
   def swap(index1, index2)
@@ -43,17 +41,17 @@ class List
   end
 
   def print
-    puts '------------------------------------------'
-    puts 'GROCERIES'.center(42)
-    puts '------------------------------------------'
-    puts 'Index'.ljust(6) + '| Item'.ljust(23) + '| Deadline'.ljust(13)
-    puts '------------------------------------------'
+    puts '-------------------------------------------------'
+    puts @label.to_s.center(50)
+    puts '-------------------------------------------------'
+    puts 'Index'.ljust(6) + '| Item'.ljust(22) + '| Deadline'.ljust(13) + '| Status'.ljust(6)
+    puts '-------------------------------------------------'
 
     @items.each_with_index do |item, idx|
-      puts idx.to_s.ljust(6) + "| #{item.title}".ljust(23) + "| #{item.deadline}".ljust(13)
+      puts idx.to_s.ljust(6) + "| #{item.title}".ljust(22) + "| #{item.deadline}".ljust(13) + "| #{item.status}".ljust(6)
     end
 
-    puts '------------------------------------------'
+    puts '-------------------------------------------------'
   end
 
   def print_full_item(index)
@@ -61,7 +59,7 @@ class List
 
     puts '------------------------------------------'
     puts @items[index].title.to_s.ljust(21) + @items[index].deadline.to_s.rjust(21)
-    puts @items[index].description.to_s.ljust(42)
+    puts @items[index].description.to_s.ljust(21) + @items[index].status.rjust(21)
     puts '------------------------------------------'
     true
   end
@@ -69,7 +67,7 @@ class List
   def print_priority
     puts '------------------------------------------'
     puts @items[0].title.to_s.ljust(21) + @items[0].deadline.to_s.rjust(21)
-    puts @items[0].description.to_s.ljust(42)
+    puts @items[0].description.to_s.ljust(21) + 'Status:' + @items[0].status.rjust(21)
     puts '------------------------------------------'
   end
 
@@ -99,5 +97,21 @@ class List
 
   def sort_by_date!
     @items.sort_by!(&:deadline)
+  end
+
+  def toggle_item(index)
+    item = self[index]
+    item&.toggle
+  end
+
+  def remove_item(index)
+    return false unless valid_index?(index)
+
+    @items.delete_at(index)
+    true
+  end
+
+  def purge
+    @items.delete_if(&:done)
   end
 end
